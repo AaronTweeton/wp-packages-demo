@@ -1,3 +1,4 @@
+import domReady from "@wordpress/dom-ready";
 import { createRoot, render, createElement } from "@wordpress/element";
 import { App } from "./app";
 
@@ -10,6 +11,6 @@ function composeApp() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+domReady(function () {
   composeApp();
 });
