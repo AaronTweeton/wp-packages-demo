@@ -1,11 +1,15 @@
-function addMessage() {
-  const el = document.querySelector("#app");
+import { createRoot, render, createElement } from "@wordpress/element";
+import { App } from "./app";
 
-  if (el) {
-    el.innerText = "Plugin JavaScript is loaded.";
+function composeApp() {
+  const el = document.querySelector("#app");
+  if (createRoot) {
+    createRoot(el).render(createElement(App));
+  } else {
+    render(createElement(App), el);
   }
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
-  addMessage();
+window.addEventListener("DOMContentLoaded", () => {
+  composeApp();
 });
