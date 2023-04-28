@@ -56,14 +56,32 @@ function wp_packages_demo_create_page() {
  * @since 0.1.0
  */
 function wp_packages_enqueue_assets(string $hook) {
+
     if ('toplevel_page_wp-packages' !== $hook) {
         return;
     }
 
-    wp_enqueue_script(
-        'wp-packages-demo',
-        plugins_url('build/index.js', __FILE__),
-    );
+    $handle = 'wp-packages-demo';
+    $filename = plugin_dir_path(__FILE__) . 'build/index.asset.php';
+
+    /**
+     * Checks to see if webpack-generated file exists, otherwise sends an error to the console. 
+     */
+    if (file_exists($filename)) {
+        $asset_file = require_once $filename;
+
+        wp_enqueue_script(
+            $handle,
+            plugins_url('build/index.js', __FILE__),
+            $asset_file['dependencies'],
+            $asset_file['version'],
+            true
+        );
+    } else {
+        wp_register_script($handle, '',);
+        wp_enqueue_script($handle);
+        wp_add_inline_script($handle, "console.error('" . __("A required JavaScript file could not be loaded, which will prevent some content from loading.", 'admin-style-book') . "');");
+    }
 }
 
 add_action('admin_menu', 'wp_packages_demo_create_page');
