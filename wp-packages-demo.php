@@ -34,7 +34,11 @@ function wp_packages_demo_compose_menu_page() {
 <?php
 }
 
-
+/**
+ * Creates admin page.
+ * 
+ * @since 0.1.0
+ */
 function wp_packages_demo_create_page() {
     add_menu_page(
         'WordPress Packages Demo',
@@ -46,6 +50,11 @@ function wp_packages_demo_create_page() {
     );
 }
 
+/**
+ * Enqueue assets.
+ * 
+ * @since 0.1.0
+ */
 function wp_packages_enqueue_assets(string $hook) {
     if ('toplevel_page_wp-packages' !== $hook) {
         return;
@@ -53,7 +62,7 @@ function wp_packages_enqueue_assets(string $hook) {
 
     wp_enqueue_script(
         'wp-packages-demo',
-        plugins_url('index.js', __FILE__),
+        plugins_url('build/index.js', __FILE__),
     );
 }
 
