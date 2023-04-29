@@ -80,7 +80,7 @@ function wp_packages_enqueue_assets(string $hook) {
     } else {
         wp_register_script($handle, '',);
         wp_enqueue_script($handle);
-        wp_add_inline_script($handle, "console.error('" . __("A required JavaScript file could not be loaded, which will prevent some content from loading.", 'admin-style-book') . "');");
+        wp_add_inline_script($handle, "console.error('" . __("A required file could not be loaded, which will prevent some content from loading.", 'admin-style-book') . "');");
     }
 }
 
